@@ -1,0 +1,2 @@
+# Example package dependencies
+django==4.2.4

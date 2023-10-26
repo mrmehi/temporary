@@ -1,0 +1,1 @@
+sudo docker run -d --name kali-tools -p 8000:8000 kali-tools-server

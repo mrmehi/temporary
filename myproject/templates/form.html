@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Script Form</title>
+  </head>
+  <body>
+    <form
+      method="post"
+      enctype="multipart/form-data"
+      action="{% url 'run_script' %}"
+    >
+      {% csrf_token %}
+      <label for="scriptId">Script ID:</label>
+      <select name="scriptId" id="scriptId">
+        <option value="3">3</option>
+        {% for i in my_range %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label for="urls">URLs file:</label>
+      <input type="file" name="urls" />
+      <br />
+      <label for="wordlist">Wordlist file:</label>
+      <input type="file" name="wordlist" />
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

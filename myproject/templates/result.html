@@ -1,0 +1,113 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>Result</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #f1f1f1;
+      }
+      .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .result {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .result h1 {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+      .result textarea {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 20px;
+        user-select: all;
+        color: #000;
+        width: 100%;
+        height: 100%;
+      }
+      .result .actions {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+      .result a, .result button {
+        text-decoration: none;
+        color: #fff;
+        background-color: #000;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        font-weight: 300;
+        transition: all 0.3s ease-in-out;
+        height: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+      }
+      .result a:hover, .result button:hover {
+        background-color: #fff;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="result">
+        <h1>Result:</h1>
+        <textarea>{% if content %}{{ content }}{% endif %}</textarea>
+        <div class="actions">
+          <a href="/">Back to Home</a>
+          <button onclick="copy()">Copy</button>
+          <button onclick="download()">Download</button>
+          <button onclick="reloadWindow()">Reload</button>
+        </div
+      </div>
+    </div>
+    <script>
+      function reloadWindow(){
+        window.location.reload()
+      }
+      function copy() {
+        var copyText = document.querySelector("textarea");
+        copyText.select();
+        document.execCommand("copy");
+      }
+      function download() {
+        var text = document.querySelector("textarea").value;
+        var filename = "result-{{ id }}.txt";
+        var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, filename);
+      }
+
+      function saveAs(blob, filename) {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+      }
+    </script>
+  </body>
+</html>
